@@ -1,0 +1,20 @@
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <title>{% block title %} My Flask app {% endblock %}</title>
+    </head>
+    <body>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+      </nav>
+
+      <div class="content">{% block content %} {% endblock %}</div>
+
+      <p>This text is from base.html</p>
+
+      <footer>
+        <p>&copy; 2023 My Flask App</p>
+      </footer>
+    </body>
+  </html>
