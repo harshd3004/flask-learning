@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Greeting user</title>
-  </head>
-  <body>
-    <h3>Hello {{username}}</h3>
-    <p>Welcome to the website</p>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Greeting user{% endblock %} 
+
+{% block content %}
+<h3>Hello {{username}}</h3>
+<p>Welcome to the website</p>
+{% endblock %}

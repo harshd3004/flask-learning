@@ -8,7 +8,7 @@ I'm exploring the core concepts by building small projects and logging daily pro
 - Flask setup and routing
 - Rendering HTML templates
 - Template inheritance using base.html
-
+- Static files: CSS & JavaScript (via `url_for()`)
 
 ## 🛠️ How to Run
 
