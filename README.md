@@ -9,6 +9,9 @@ I'm exploring the core concepts by building small projects and logging daily pro
 - Rendering HTML templates
 - Template inheritance using base.html
 - Static files: CSS & JavaScript (via `url_for()`)
+- Handling POST requests and working with Flask forms
+- Basic form validation and data retrieval using request.form
+
 
 ## 🛠️ How to Run
 
