@@ -1,7 +1,12 @@
 from flask import Flask,render_template,request,redirect,url_for,flash
+from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 from datetime import datetime
 
 app = Flask(__name__)
+
+app.config["MONGO_URI"] = "mongodb://127.0.0.1:27017/flaskdb"  
+mongo = PyMongo(app)
 
 # This makes 'now' available in all templates
 @app.context_processor
@@ -27,9 +32,30 @@ def register():
         email = request.form['email']
         passwd = request.form['password']
 
-        #store the user in database (to be done later)
+        errors = []
 
-        print(f"New User: {username}, Email: {email}")
+        # Basic validation
+        if not username:
+            errors.append("Username is required.")
+        if not email or '@' not in email:
+            errors.append("Valid email is required.")
+        if len(passwd) < 6:
+            errors.append("Password must be at least 6 characters.")
+
+        
+        if mongo.db.users.find_one({'email':email}):
+            errors.append("Email already registered.")
+        
+        if errors:
+            return render_template('register.html', errors=errors)
+
+        #store the user in database
+        mongo.db.users.insert_one({
+            'username': username,
+            'email': email,
+            'password': passwd,  
+            'created_at': datetime.now()
+        })
         return redirect(url_for('login'))
     
     return render_template('register.html')
@@ -47,7 +73,12 @@ def contactForm():
 
         #Validation to be added
         
-        print(f'Contact form submitted by {name}')
+        #writing to db
+        mongo.db.contact_message.insert_one({
+            'name':name,
+            'email':email,
+            'message' : message
+        })
 
     return render_template('contact_form.html')
 
