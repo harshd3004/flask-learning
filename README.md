@@ -11,6 +11,8 @@ I'm exploring the core concepts by building small projects and logging daily pro
 - Static files: CSS & JavaScript (via `url_for()`)
 - Handling POST requests and working with Flask forms
 - Basic form validation and data retrieval using request.form
+- Connecting Flask to MongoDB using PyMongo
+- Implementing secure password hashing using Werkzeug
 
 
 ## 🛠️ How to Run
