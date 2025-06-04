@@ -2,6 +2,7 @@ from flask import Flask,render_template,request,redirect,url_for,flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
@@ -53,7 +54,7 @@ def register():
         mongo.db.users.insert_one({
             'username': username,
             'email': email,
-            'password': passwd,  
+            'password': generate_password_hash(passwd),  
             'created_at': datetime.now()
         })
         return redirect(url_for('login'))
@@ -62,7 +63,17 @@ def register():
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    return ""
+    if request.method == "POST":
+        email = request.form['email']
+        passwd = request.form['password']
+        user = mongo.db.users.find_one({'email': email})
+
+        if user and check_password_hash(user['password'], passwd):
+            return redirect(url_for('home'))
+        else:
+            error = "Invalid credentials!"
+            return render_template('login.html',error = "Invalid credentials!")
+    return render_template('login.html')
 
 @app.route('/contactform',methods=['GET','POST'])
 def contactForm():
