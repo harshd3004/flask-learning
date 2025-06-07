@@ -13,6 +13,7 @@ I'm exploring the core concepts by building small projects and logging daily pro
 - Basic form validation and data retrieval using request.form
 - Connecting Flask to MongoDB using PyMongo
 - Implementing secure password hashing using Werkzeug
+- Email verification (using Flask-Mail)
 
 
 ## 🛠️ How to Run

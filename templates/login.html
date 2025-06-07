@@ -2,6 +2,15 @@
 
 {% block titile %} User Login {% endblock %} 
 
+{% block flashMsg %}
+  {% if category == 'warning' and 'not verified' in message %}
+    <form method="POST" action="{{ url_for('resend_verification') }}" style="display:inline;">
+        <input type="hidden" name="email" value="{{ email }}">
+        <button type="submit" class="btn btn-link p-0">Resend verification email</button>
+    </form>
+  {% endif %}
+{% endblock %}
+
 {% block content %}
 <h2>Login</h2>
 {% if error %}

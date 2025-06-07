@@ -31,6 +31,28 @@
         </div>
       </nav>
       
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+
+                <!-- for email resend button -->
+                {% if category == 'warning' and 'not verified' in message.lower() %}
+                  <form method="POST" action="{{ url_for('resend_verification') }}" class="d-inline">
+                    <input type="hidden" name="email" value="{{ request.form.email if request.form.email else '' }}">
+                    <button type="submit" class="btn btn-link p-0 ms-2">Resend verification email</button>
+                  </form>
+                {% endif %}
+                    
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
       <div class="content">{% block content %} {% endblock %}</div>
       
       
